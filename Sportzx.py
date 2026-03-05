@@ -379,6 +379,9 @@ def generate_web_view_url(
         )
 
         if event_name:
+    
+            event_name = re.sub(r"[^\w\s\-\:\(\)\,\.\']", " ", event_name).strip()
+
             if event_name not in grouped:
                 grouped[event_name] = {"event_name": event_name, "streams": []}
                 if ch.event_time and ch.event_time.strip():
@@ -397,7 +400,7 @@ def generate_web_view_url(
 
 if __name__ == "__main__":
     client = SportzxClient(
-        excluded_categories=["adult", "test", "xxx"],
+        # excluded_categories=["adult", "test", "xxx"],
         timeout=15
     )
 
@@ -405,7 +408,7 @@ if __name__ == "__main__":
     channels = client.get_channels()
 
     print("Generating web-view urls")
-    web_views = generate_web_view_url(channels, "http://localhost:8000/DRM-player.html")
+    web_views = generate_web_view_url(channels,)# "http://localhost:8000/DRM-player.html")
 
     print(f"Saving {len(web_views)} web-views")
 
