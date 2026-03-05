@@ -23,7 +23,7 @@
                 "channel_title": "Fox Sports - AQ"
             }
         ],
-        "event_time": "2026-03-06 01:30"
+        "event_time": "2026-03-06 04:30"
     },
     {
         "event_name": "MotoGP - Grand Prix of Brazil",
@@ -45,7 +45,7 @@
                 "channel_title": "ZIGGO SPORT - AQ"
             }
         ],
-        "event_time": "2026-03-20 16:00"
+        "event_time": "2026-03-20 19:00"
     },
     {
         "event_name": "ONE Friday Fights 138",
@@ -63,7 +63,7 @@
                 "channel_title": "Server 3"
             }
         ],
-        "event_time": "2026-03-06 12:30"
+        "event_time": "2026-03-06 15:30"
     },
     {
         "event_name": "WWE Monday Night RAW",
@@ -73,7 +73,7 @@
                 "channel_title": "Tap Sport LQ"
             }
         ],
-        "event_time": "2026-03-10 01:00"
+        "event_time": "2026-03-10 04:00"
     },
     {
         "event_name": "WWE Friday Night SmackDown",
@@ -83,7 +83,7 @@
                 "channel_title": "USA TV (USA VPN)"
             }
         ],
-        "event_time": "2026-03-07 01:00"
+        "event_time": "2026-03-07 04:00"
     },
     {
         "event_name": "WWE NXT",
@@ -93,7 +93,7 @@
                 "channel_title": "Tap Sports"
             }
         ],
-        "event_time": "2026-03-11 01:00"
+        "event_time": "2026-03-11 04:00"
     },
     {
         "event_name": "AEW Dynamite",
@@ -107,7 +107,7 @@
                 "channel_title": "Fox Sports Premium"
             }
         ],
-        "event_time": "2026-03-05 01:00"
+        "event_time": "2026-03-05 04:00"
     },
     {
         "event_name": "India vs England",
@@ -129,7 +129,7 @@
                 "channel_title": "JIO HOTSTAR [HIN]"
             }
         ],
-        "event_time": "2026-03-05 13:30"
+        "event_time": "2026-03-05 16:30"
     },
     {
         "event_name": "ISL vs ISL",
@@ -159,7 +159,7 @@
                 "channel_title": "FANCODE [BD]"
             }
         ],
-        "event_time": "2026-03-05 11:30"
+        "event_time": "2026-03-05 14:30"
     },
     {
         "event_name": "Australia vs Chinese Taipei",
@@ -173,7 +173,7 @@
                 "channel_title": "FOX DEPORTES"
             }
         ],
-        "event_time": "2026-03-05 03:00"
+        "event_time": "2026-03-05 06:00"
     },
     {
         "event_name": "Philippines vs South Korea",
@@ -187,6 +187,6 @@
                 "channel_title": "FANCODE - SD"
             }
         ],
-        "event_time": "2026-03-05 03:00"
+        "event_time": "2026-03-05 06:00"
     }
 ]

@@ -4,7 +4,7 @@ import base64
 import re
 from typing import List, Optional
 from dataclasses import dataclass
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 APP_PASSWORD = "oAR80SGuX3EEjUGFRwLFKBTiris="
 
@@ -347,15 +347,22 @@ class SportzxClient:
 
 
 # ────────────────────────────────────────────────
-
-
 def generate_web_view_url(
     channels: list[SportzxChannel],
     player_host: str = "https://kratosrepo.github.io/drm-player",
-    include_without_keys: bool = False
+    include_without_keys: bool = False,
 ) -> list[dict]:
     grouped: dict[str, dict] = {}
     ungrouped = []
+
+    def utc_to_local(utc_str: str) -> str:
+        try:
+            utc_dt = datetime.strptime(utc_str.strip(), "%Y-%m-%d %H:%M")
+            utc_dt = utc_dt.replace(tzinfo=timezone.utc)
+            local_dt = utc_dt.astimezone()
+            return local_dt.strftime("%Y-%m-%d %H:%M")
+        except Exception:
+            return utc_str
 
     for ch in channels:
         if not ch.stream_url:
@@ -364,7 +371,6 @@ def generate_web_view_url(
         params = f"emmbed-url={ch.stream_url}"
         if ch.keyid and ch.key:
             params += f"&kid={ch.keyid}&key={ch.key}"
-
         elif not include_without_keys:
             continue
 
@@ -377,22 +383,20 @@ def generate_web_view_url(
         event_name = (
             ch.event_name.strip() if ch.event_name and ch.event_name.strip() else None
         )
-
         if event_name:
-    
             event_name = re.sub(r"[^\w\s\-\:\(\)\,\.\']", " ", event_name).strip()
 
+        if event_name:
             if event_name not in grouped:
                 grouped[event_name] = {"event_name": event_name, "streams": []}
                 if ch.event_time and ch.event_time.strip():
-                    grouped[event_name]["event_time"] = ch.event_time.strip()
-
+                    grouped[event_name]["event_time"] = utc_to_local(ch.event_time)
             grouped[event_name]["streams"].append(stream_entry)
 
         else:
             entry = {"streams": [stream_entry]}
             if ch.event_time and ch.event_time.strip():
-                entry["event_time"] = ch.event_time.strip()
+                entry["event_time"] = utc_to_local(ch.event_time)
             ungrouped.append(entry)
 
     return list(grouped.values()) + ungrouped
@@ -408,11 +412,13 @@ if __name__ == "__main__":
     channels = client.get_channels()
 
     print("Generating web-view urls")
-    web_views = generate_web_view_url(channels,)# "http://localhost:8000/DRM-player.html")
+    web_views = generate_web_view_url(
+        channels,
+    )  # "http://localhost:8000/DRM-player.html")
 
     print(f"Saving {len(web_views)} web-views")
 
-    with open("web-view-urls.1.json", "w") as fh:
+    with open("web-view-urls.json", "w") as fh:
         json.dump(web_views, fh, indent=4)
 
     print(f"Found {len(channels)} channels total")
@@ -421,7 +427,7 @@ if __name__ == "__main__":
         print("Generating Sportzx.m3u8 playlist...")
         client.generate_m3u(
             channels=channels,
-            filename="Sportzx.1.m3u8",
+            filename="Sportzx.m3u8",
             generic_logo="https://i.postimg.cc/xdhSY2xq/does-anyone-have-transparent-sportzx-icons-they-can-share-v0-wyufeqaxobff1.png",
         )
     else:
